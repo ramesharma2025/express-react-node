@@ -78,7 +78,7 @@ const Users = () => {
       email: user.email,
       password: user.password,
     });
-    setEditingId(user.id);
+    setEditingId(user._id);
   };
 
   return (
@@ -140,8 +140,8 @@ const Users = () => {
 
           <tbody>
             {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
+              <tr key={user._id}>
+                <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
@@ -153,7 +153,7 @@ const Users = () => {
                   </button>
 
                   <button
-                    onClick={() => handleDelete(user.id)}
+                    onClick={() => handleDelete(user._id)}
                     style={styles.deleteBtn}
                   >
                     Delete
