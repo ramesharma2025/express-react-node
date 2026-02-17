@@ -38,14 +38,12 @@ const Users = () => {
     e.preventDefault();
 
     if (editingId) {
-      // UPDATE
       await fetch(`${API_URL}/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
     } else {
-      // CREATE
       await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -82,132 +80,173 @@ const Users = () => {
   };
 
   return (
-    <div style={styles.container}>
-      {/* LEFT SIDE - FORM */}
-      <div style={styles.formSection}>
-        <h2>{editingId ? "Edit User" : "Add User"}</h2>
+    <div style={styles.page}>
+      {/* HEADER */}
+      <header style={styles.header}>
+        <h1 style={styles.headerTitle}>🚀 Welcome to MERN Stack</h1>
+      </header>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter Name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
+      {/* MAIN CONTENT */}
+      <div style={styles.container}>
+        {/* LEFT SIDE - FORM */}
+        <div style={styles.formSection}>
+          <h2 style={styles.sectionTitle}>
+            {editingId ? "Edit User" : "Add User"}
+          </h2>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
 
-          <button type="submit" style={styles.button}>
-            {editingId ? "Update User" : "Add User"}
-          </button>
-        </form>
-      </div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              value={form.password}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
 
-      {/* RIGHT SIDE - TABLE */}
-      <div style={styles.tableSection}>
-        <h2>Users List</h2>
+            <button type="submit" style={styles.button}>
+              {editingId ? "Update User" : "Add User"}
+            </button>
+          </form>
+        </div>
 
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+        {/* RIGHT SIDE - TABLE */}
+        <div style={styles.tableSection}>
+          <h2 style={styles.sectionTitle}>Users List</h2>
 
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  <button
-                    onClick={() => handleEdit(user)}
-                    style={styles.editBtn}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    onClick={() => handleDelete(user._id)}
-                    style={styles.deleteBtn}
-                  >
-                    Delete
-                  </button>
-                </td>
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user._id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <button
+                      onClick={() => handleEdit(user)}
+                      style={styles.editBtn}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      style={styles.deleteBtn}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      {/* FOOTER */}
+      <footer style={styles.footer}>
+        © 2026 MERN Stack App. All Rights Reserved.
+      </footer>
     </div>
   );
 };
 
 // ======================
-// Simple Dashboard Styles
+// Beautified Styles
 // ======================
 const styles = {
+  page: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+    backgroundColor: "#f4f6f9",
+    fontFamily: "Arial, sans-serif",
+  },
+  header: {
+    background: "linear-gradient(90deg, #007bff, #6610f2)",
+    padding: "20px",
+    textAlign: "center",
+    color: "#fff",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+  },
+  headerTitle: {
+    margin: 0,
+    fontSize: "28px",
+    fontWeight: "bold",
+    letterSpacing: "1px",
+  },
   container: {
     display: "flex",
     gap: "30px",
     padding: "40px",
-    backgroundColor: "#f4f6f9",
-    minHeight: "100vh",
+    flex: 1,
   },
   formSection: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    padding: "25px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   },
   tableSection: {
     flex: 2,
     backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    padding: "25px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+  },
+  sectionTitle: {
+    marginBottom: "20px",
+    color: "#333",
   },
   input: {
     display: "block",
     width: "100%",
-    padding: "10px",
+    padding: "12px",
     marginBottom: "15px",
-    borderRadius: "5px",
+    borderRadius: "6px",
     border: "1px solid #ccc",
+    fontSize: "14px",
   },
   button: {
-    padding: "10px 20px",
+    padding: "12px",
+    width: "100%",
     backgroundColor: "#007bff",
     color: "#fff",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "6px",
     cursor: "pointer",
+    fontWeight: "bold",
   },
   table: {
     width: "100%",
@@ -228,6 +267,13 @@ const styles = {
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
+  },
+  footer: {
+    backgroundColor: "#212529",
+    color: "#fff",
+    textAlign: "center",
+    padding: "15px",
+    fontSize: "14px",
   },
 };
 
