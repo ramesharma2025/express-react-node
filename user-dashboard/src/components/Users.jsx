@@ -175,7 +175,7 @@ const Users = () => {
 
       {/* FOOTER */}
       <footer style={styles.footer}>
-        © 2026 MERN Stack App. All Rights Reserved.
+        © 2026 CRUD App. All Rights Reserved.
       </footer>
     </div>
   );
